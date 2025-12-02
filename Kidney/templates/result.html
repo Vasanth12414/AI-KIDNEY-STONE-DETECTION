@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<div class="grid md:grid-cols-2 gap-8 items-start">
+
+  <!-- Images Section -->
+  <div class="space-y-6">
+    <!-- Uploaded Image -->
+    <div class="p-6 bg-white rounded-2xl shadow-lg">
+      <h2 class="text-lg font-semibold mb-4">Uploaded Image</h2>
+      <div class="flex justify-center">
+        <img src="{{ uploaded_image_url }}" alt="Uploaded MRI" class="max-h-96 rounded-xl border" />
+      </div>
+    </div>
+
+    <!-- Detection Result -->
+    <div class="p-6 bg-white rounded-2xl shadow-lg">
+      <h2 class="text-lg font-semibold mb-4">Detection Result</h2>
+      {% if result_image_url %}
+      <div class="flex justify-center">
+        <img src="{{ result_image_url }}" alt="Annotated Result" class="max-h-96 rounded-xl border-2 border-blue-500" />
+      </div>
+      {% else %}
+      <p class="text-sm text-slate-600">No detection result available.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Detection Stats & Actions -->
+  <div class="space-y-6">
+    <div class="p-6 bg-white rounded-2xl shadow-lg">
+      <h2 class="text-lg font-semibold mb-4">Detection Stats</h2>
+      {% if detection_stats %}
+      <ul class="list-disc ml-6 space-y-1 text-sm text-slate-700">
+        {% for stat in detection_stats %}
+        <li>{{ stat }}</li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="text-sm text-slate-600">No detection stats available.</p>
+      {% endif %}
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="p-6 bg-white rounded-2xl shadow-lg flex flex-col md:flex-row gap-4">
+      <a href="/" class="px-4 py-2 bg-slate-900 text-white rounded-xl text-center hover:bg-slate-800 transition">New Scan</a>
+      {% if result_image_url %}
+      <a href="{{ result_image_url }}" download class="px-4 py-2 bg-blue-600 text-white rounded-xl text-center hover:bg-blue-700 transition">Download Result</a>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}

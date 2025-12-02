@@ -1,0 +1,5 @@
+ultralytics
+django
+pillow
+pydicom
+pyyaml

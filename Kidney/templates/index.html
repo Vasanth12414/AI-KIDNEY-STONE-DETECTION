@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<div class="grid md:grid-cols-2 gap-8 items-start">
+
+  <!-- Upload Form Card -->
+  <div class="p-8 bg-white rounded-2xl shadow-lg">
+    <h2 class="text-xl font-semibold mb-3">Upload MRI</h2>
+    <p class="text-sm text-slate-500 mb-6">PNG, JPG, or DICOM (.dcm), max 25 MB</p>
+
+    <form method="post" enctype="multipart/form-data" class="space-y-4">
+      <input type="file" name="image" accept=".png,.jpg,.jpeg,.dcm" class="block w-full text-sm border rounded px-3 py-2" required />
+      <button class="w-full px-4 py-2 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition">Run Detection</button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="mt-4 space-y-2">
+        {% for category, message in messages %}
+        <div class="rounded-lg px-3 py-2 text-sm {{ 'bg-red-50 text-red-700' if category == 'error' else 'bg-green-50 text-green-700' }}">
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <!-- How it Works Card -->
+  <div class="p-8 bg-white rounded-2xl shadow-lg">
+    <h3 class="text-xl font-semibold mb-4">How it works</h3>
+    <ol class="list-decimal ml-6 space-y-2 text-sm text-slate-700">
+      <li>Upload an MRI slice image or a DICOM file.</li>
+      <li>The YOLO model detects kidney stones automatically.</li>
+      <li>View the annotated image and detection statistics.</li>
+    </ol>
+  </div>
+
+</div>
+{% endblock %}
